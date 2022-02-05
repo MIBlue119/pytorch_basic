@@ -30,4 +30,5 @@ for epoch in range(n_epochs):
     #b.grad.zero()
     #w.grad.zero()
     optimizer.zero_grad()
+    print(model.state_dict())
 
