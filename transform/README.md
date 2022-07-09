@@ -1,7 +1,7 @@
 # Torch STFT practice
 
-- [ ] Use torch.stft to build a STFT/iSTFT class 
-- [ ] Draw the result of the stft
+- [x] Use torch.stft to build a STFT/iSTFT class 
+- [x] Draw the result of the stft
 
 
 ### Source
