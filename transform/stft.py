@@ -5,6 +5,14 @@ import torch
 from torch import Tensor 
 import torch.nn as nn 
 
+import sys
+import pathlib
+import os 
+path_of_utilities = pathlib.Path(__file__).parent.parent.absolute() / "utilities"
+print(path_of_utilities)
+sys.path.append(str(path_of_utilities))
+from hooks import hook_show_module_parameters
+
 class STFT(nn.Module):
     def __init__(
         self, 
@@ -59,7 +67,7 @@ class STFT(nn.Module):
         # shape = x.shape
         # x.view(-1, shape[-1]) -> shape size = (2, 16000)  
         x = x.view(-1, shape[-1])
-        print(x.shape)
+        #print(x.shape)
 
         # torch.stft doc: https://pytorch.org/docs/stable/generated/torch.stft.html
         # Input must be either a 1-D time sequence or a 2-D batch of time sequences.
@@ -96,5 +104,8 @@ if __name__ == '__main__':
     # Initiate a tensor with shape (batch_size, n_channels, n_samples)
     input_tensor = torch.randn(1, 2, 16000)
     stft = STFT()
+    # Iterate over the children of the module to register the forward hook
+    for i in stft.children():
+        print(i.register_forward_hook(hook_show_module_parameters))
     output = stft(input_tensor)
 
