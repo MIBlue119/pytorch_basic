@@ -1,7 +1,7 @@
 # pytorch_basic
 
 A repo to record the practice of pytorch 
-- [torch trainign pipeline](./notebooks/README.md)
+- [torch trainign pipeline](./notebooks/torch_pipeline/README.md)
 - [stft transform practice](./transform/README.md): Use a `torch.nn.Module` to construct a torch class with STFT and ISTFT for audio processing.
 
 ## Installation
