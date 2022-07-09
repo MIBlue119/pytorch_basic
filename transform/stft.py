@@ -40,7 +40,7 @@ class STFT(nn.Module):
     def forward(self, x: Tensor):
         """STFT forward path
         Args:
-            x (Tensor): audio waveform of shape (batch_size, n_frames, n_channels)
+            x (Tensor): audio waveform of shape (batch_size, n_channels, n_samples)
         
         Returns:
             output: (batch_size, n_channels,n_freq,n_frames)
@@ -59,6 +59,7 @@ class STFT(nn.Module):
         # shape = x.shape
         # x.view(-1, shape[-1]) -> shape size = (2, 16000)  
         x = x.view(-1, shape[-1])
+        print(x.shape)
 
         # torch.stft doc: https://pytorch.org/docs/stable/generated/torch.stft.html
         # Input must be either a 1-D time sequence or a 2-D batch of time sequences.
@@ -84,9 +85,16 @@ class STFT(nn.Module):
 
         # Unpack the batch 
         # Combine the shape : torch.size(nb_batches, nb_channels)+ torch.size(n_freq, n_frames, 2=real+imag)
-        output = output.view(shape[:-1], real_tensor_stft.shape[-3:])
+        #output = real_tensor_stft.view(shape[:-1], real_tensor_stft.shape[-3:])
+        output = real_tensor_stft.view( -1 ,nb_channels, real_tensor_stft.size(-3), real_tensor_stft.size(-2), real_tensor_stft.size(-1))
         # shape of output: (nb_batches, nb_channels, n_freq, n_frames, 2=real+imag)
 
         return output
 
+
+if __name__ == '__main__':
+    # Initiate a tensor with shape (batch_size, n_channels, n_samples)
+    input_tensor = torch.randn(1, 2, 16000)
+    stft = STFT()
+    output = stft(input_tensor)
 
