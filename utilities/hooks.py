@@ -7,17 +7,16 @@ Ref:
 import torch.nn as nn
 
 
-
 def hook_show_module_parameters(module: nn.Module, input, output):
     """Ref:https://blog.paperspace.com/pytorch-hooks-gradient-clipping-debugging/"""
     print(module)
     print("---------------Module Parameters---------------")
-    neles = sum(  [ param.nelement() for param in module.parameters()])
+    neles = sum([param.nelement() for param in module.parameters()])
     print(neles)
     print("---------------Module input Gradients---------------")
     for in_ in input:
         try:
-            print(f"{in_shape:{in_.shape}}")
+            print(f"in_:{in_.shape}")
         except AttributeError:
             print("None found for Gradient")
     print("---------------Module Outputs---------------")

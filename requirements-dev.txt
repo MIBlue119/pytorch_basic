@@ -1,0 +1,3 @@
+# Add pre-commit
+# https://myapollo.com.tw/zh-tw/pre-commit-the-best-friend-before-commit/
+pre-commit
